@@ -105,6 +105,13 @@ DECIVE_UNIT = 0
             try {
                 var driverFolder = Path.Combine(Path.GetDirectoryName(Path.Combine(Assembly.GetEntryAssembly().Location)), "Driver");
 
+                var allowAnyEKU = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SmartCardCredentialProvider", "AllowCertificatesWithNoEKU", 0);
+                if (allowAnyEKU == null || ((int)allowAnyEKU) == 0) {
+                    Console.WriteLine("[=] AllowCertificatesWithNoEKU on SmartCard Credential Provider not set, enabling...");
+                    Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SmartCardCredentialProvider", "AllowCertificatesWithNoEKU", 1);
+                    Console.WriteLine("[+] Enabled AllowCertificatesWithNoEKU on SmartCard Credential Provider");
+                }
+
                 Console.WriteLine("[=] Writing BixVReader.ini config to C:\\Windows");
                 File.WriteAllText(@"C:\Windows\BixVReader.ini", readerConfig);
                 Console.WriteLine("[=] Installing driver signing certificate into Root and Trusted Publishers local machine store");
@@ -127,18 +134,6 @@ DECIVE_UNIT = 0
         }
 
         static void RunEmulation(string pfxFile, string pfxPassword) {
-
-            try {
-                var allowAnyEKU = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SmartCardCredentialProvider", "AllowCertificatesWithNoEKU", 0);
-
-                if (allowAnyEKU == null || ((int)allowAnyEKU) == 0) {
-                    Console.WriteLine("[=] AllowCertificatesWithNoEKU on SmartCard Credential Provider not set, enabling...");
-                    Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SmartCardCredentialProvider", "AllowCertificatesWithNoEKU", 1);
-                    Console.WriteLine("[+] Enabled AllowCertificatesWithNoEKU on SmartCard Credential Provider");
-                }
-            } catch (UnauthorizedAccessException) {
-                Console.WriteLine("[!] Failed to set AllowCertificatesWithNoEKU on SmartCard Credential Provider, are you admin?  Only certificates with SmartCard Logon EKU will work.");
-            }
 
             var cardSettings = (PipeReaderSettings)ReaderSettings.LocalPipe();
 
