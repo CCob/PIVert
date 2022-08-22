@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PIVert": {
+      "commandName": "Project",
+      "commandLineArgs": "install"
+    }
+  }
+}
