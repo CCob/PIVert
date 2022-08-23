@@ -47,4 +47,4 @@ To emulate a PIV card using a PFX file, you simply specify the PFX file and PFX 
 [=] Request for PIV DataObject: KeyHistory
 ```
 
-There does appear to be a bug in the driver (or potentially my code :D) were sometimes the virtual card insertion is not detected by Windows.  To combat this issue you can press any key other than ESC to virtually remove and re-insert the card.  You’ll know when this as happened as you won’t see the requests for DataObjects on start-up like above.
+There does appear to be a bug in the driver (or potentially my code :D) were sometimes the virtual card insertion is not detected by Windows due issues reading the ATR from the virtual card.  To combat this issue you can press any key other than ESC to virtually remove and re-insert the card.  You’ll know when this as happened as you won’t see the requests for DataObjects on start-up like above.

@@ -10,6 +10,12 @@ using Yubico.Core.Logging;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.X509;
+using Org.BouncyCastle.Asn1;
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Operators;
+using System.Collections.Generic;
 
 namespace PIVert {
 
@@ -43,7 +49,7 @@ namespace PIVert {
         readonly CardholderUniqueId cardHolderUID = new CardholderUniqueId();
         readonly Pkcs12Store store = new Pkcs12Store();
         readonly RsaPrivateCrtKeyParameters key;
-        readonly byte[] certificate;
+        readonly byte[] certificateBytes;
 
         BinaryReader pendingResponse;
         MemoryStream pendingRequest;
@@ -54,8 +60,8 @@ namespace PIVert {
 
             store.Load(new MemoryStream(File.ReadAllBytes(pfxPath)),pfxPassword.ToArray());
             var firstAlias = store.Aliases.Cast<string>().First();
-            certificate = store.GetCertificate(firstAlias).Certificate.GetEncoded();
-            key = (RsaPrivateCrtKeyParameters)store.GetKey(firstAlias).Key;                   
+            certificateBytes = store.GetCertificate(firstAlias).Certificate.GetEncoded();
+            key = (RsaPrivateCrtKeyParameters)store.GetKey(firstAlias).Key;            
         }
 
         public int GetInteger(ReadOnlySpan<byte> data) {
@@ -220,7 +226,7 @@ namespace PIVert {
                         case DataObjectType.CertSign:
 
                             using (tlvResponse.WriteNestedTlv(0x53)) {
-                                tlvResponse.WriteValue(0x70, certificate);
+                                tlvResponse.WriteValue(0x70, certificateBytes);
                                 tlvResponse.WriteValue(0x71, new byte[] {00});
                                 tlvResponse.WriteValue(0xFE, new byte[] { });
                             };
