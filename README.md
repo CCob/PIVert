@@ -10,7 +10,6 @@ PIVert is a NIST SP 800-73 PIV smart card emulator.  You can supply PIVert with 
 
 On a clean machine that hasn’t used PIVert before, the first step is to install the BixVReader virtual smart card reader driver.  WARNING, this does install a self-signed trusted root certificate authority certificate since the driver is self-signed using a test certificate.  The install step also sets the AllowCertificatesWithNoEKU group policy option.  Without this option, only certificates with the Smartcard Logon EKU are offered for authentication.  With this option enabled, certificates with the User Authentication EKU are also available for authentication.
 
-
 ```
 .\PIVert.exe install
 [=] AllowCertificatesWithNoEKU on SmartCard Credential Provider not set, enabling...
@@ -48,3 +47,9 @@ To emulate a PIV card using a PFX file, you simply specify the PFX file and PFX 
 ```
 
 There does appear to be a bug in the driver (or potentially my code :D) were sometimes the virtual card insertion is not detected by Windows due issues reading the ATR from the virtual card.  To combat this issue you can press any key other than ESC to virtually remove and re-insert the card.  You’ll know when this as happened as you won’t see the requests for DataObjects on start-up like above.
+
+## Acknowledgements
+
+* Fabio Ottavi for BixVReader UDMF driver ([https://www.codeproject.com/Articles/134010/An-UMDF-Driver-for-a-Virtual-Smart-Card-Reader])
+* Frank Morgner and the Virtual Smart Card Project ([https://github.com/frankmorgner/vsmartcard/tree/master/virtualsmartcard])
+* Yibico and the Yubikey .NET SDK which some code has made it's way into PIVert ([https://github.com/Yubico/Yubico.NET.SDK])

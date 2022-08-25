@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Security.Cryptography;
 
-namespace ISO7816
-{
+namespace ISO7816 {
     public class Apdu
     {
         public Byte INS;

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Win32;
-
-namespace VirtualSmartCard
-{
+﻿namespace VirtualSmartCard {
     public abstract class ReaderSettings
     {
         public string Name { get; set; }

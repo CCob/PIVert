@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System;
-using System.Collections.Generic;
-namespace VirtualSmartCard
-{
+﻿namespace VirtualSmartCard {
     public interface ICardHandler
     {
         byte[] ProcessApdu(byte[] apdu);

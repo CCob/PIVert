@@ -6,16 +6,9 @@ using ISO7816;
 using System.IO;
 using Yubico.Core.Tlv;
 using Yubico.YubiKey.Piv.Objects;
-using Yubico.Core.Logging;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.X509;
-using Org.BouncyCastle.Asn1;
-using Org.BouncyCastle.Asn1.X509;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Crypto.Operators;
-using System.Collections.Generic;
 
 namespace PIVert {
 

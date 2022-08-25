@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.Resources;
-using System.Reflection;
 using System.IO;
-using System.Xml.Serialization;
-using VirtualSmartCard;
 using System.Runtime.InteropServices;
 
-namespace System
-{
+namespace System {
     public class SmartCard {
         public enum scope : uint
         {
